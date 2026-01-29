@@ -1,30 +1,27 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-
-#
-# Complete the 'countResponseTimeRegressions' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts INTEGER_ARRAY responseTimes as parameter.
-#
+# Count the number of times a response time exceeds the average of all previous response times.
 
 def countResponseTimeRegressions(responseTimes):
-    # Write your code here
+    count = 0
+
+    if not responseTimes or len(responseTimes) == 1:
+        print(f"The total count: {count}")
+        return count
+    
+    for index, item in enumerate(responseTimes):
+        total, average = 0, 0
+        if index == 0:
+            continue
+        for j in range(index):
+            total += responseTimes[j]
+        average = total / index
+        
+        if item > average:
+            count += 1
+    print(f"The total count: {count}")
+    return count
 
 if __name__ == '__main__':
-    responseTimes_count = int(input().strip())
-
-    responseTimes = []
-
-    for _ in range(responseTimes_count):
-        responseTimes_item = int(input().strip())
-        responseTimes.append(responseTimes_item)
-
-    result = countResponseTimeRegressions(responseTimes)
-
-    print(result)
+    countResponseTimeRegressions([100, 200, 150, 300])
+    countResponseTimeRegressions([100, 200, -5, 0, 800, 5, 6])
+    countResponseTimeRegressions([])
+    countResponseTimeRegressions([50])
